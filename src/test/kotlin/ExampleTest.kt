@@ -43,5 +43,22 @@ class ExampleTest {
             }
         }
     }
+
+    @Test
+    fun `check idealo logo is visible `() {
+        skrape {
+            url = "https://www.idealo.de/"
+            expect {
+                htmlDocument {
+                    a {
+                        withClass = "i-header-logo"
+                        findFirst {
+                            toBePresent
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
