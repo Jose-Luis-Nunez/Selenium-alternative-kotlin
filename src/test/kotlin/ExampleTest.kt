@@ -60,5 +60,21 @@ class ExampleTest {
             }
         }
     }
+
+    @Test
+    fun `check title of top products carousel is visible`() {
+        skrape {
+            url = "https://www.idealo.de/"
+            expect {
+                htmlDocument {
+                    "#popular-products-section .stage-title" {
+                        findFirst {
+                            text toBe "Beliebteste Produkte"
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
