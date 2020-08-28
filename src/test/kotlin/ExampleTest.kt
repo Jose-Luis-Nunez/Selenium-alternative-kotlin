@@ -63,13 +63,31 @@ class ExampleTest {
 
     @Test
     fun `check title of top products carousel is visible`() {
+        val topProductsCarouselSelector = "#popular-products-section .stage-title"
         skrape {
             url = "https://www.idealo.de/"
             expect {
                 htmlDocument {
-                    "#popular-products-section .stage-title" {
+                    topProductsCarouselSelector  {
                         findFirst {
                             text toBe "Beliebteste Produkte"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `check computerbild logo is visible`() {
+        val computerBildLogoSelector = ".i-header-row .i-header-cobi"
+        skrape {
+            url = "https://www.idealo.de/"
+            expect {
+                htmlDocument {
+                    computerBildLogoSelector {
+                        findFirst {
+                            toBePresent
                         }
                     }
                 }
