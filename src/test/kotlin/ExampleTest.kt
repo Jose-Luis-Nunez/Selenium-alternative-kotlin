@@ -2,9 +2,11 @@ import it.skrape.core.htmlDocument
 import it.skrape.expect
 import it.skrape.matchers.toBe
 import it.skrape.matchers.toBePresent
+import it.skrape.selects.eachHref
 import it.skrape.selects.html5.a
 import it.skrape.selects.html5.h1
 import it.skrape.selects.html5.label
+import it.skrape.selects.html5.li
 import it.skrape.skrape
 import org.junit.jupiter.api.Test
 
@@ -68,7 +70,7 @@ class ExampleTest {
             url = "https://www.idealo.de/"
             expect {
                 htmlDocument {
-                    topProductsCarouselSelector  {
+                    topProductsCarouselSelector {
                         findFirst {
                             text toBe "Beliebteste Produkte"
                         }
@@ -88,6 +90,23 @@ class ExampleTest {
                     computerBildLogoSelector {
                         findFirst {
                             toBePresent
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `check 20 footer links exist`() {
+        skrape {
+            url = "https://www.idealo.de/"
+            expect {
+                htmlDocument {
+                    li {
+                        withClass = "pageFooter-serviceBoxListItem"
+                        findAll {
+                            eachHref().size toBe 20
                         }
                     }
                 }
