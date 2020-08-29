@@ -1,12 +1,14 @@
 import it.skrape.core.htmlDocument
 import it.skrape.expect
+import it.skrape.matchers.`to contain`
 import it.skrape.matchers.toBe
 import it.skrape.matchers.toBePresent
+import it.skrape.matchers.toContain
 import it.skrape.selects.eachHref
-import it.skrape.selects.html5.a
-import it.skrape.selects.html5.h1
-import it.skrape.selects.html5.label
+import it.skrape.selects.eachText
+import it.skrape.selects.html5.*
 import it.skrape.selects.html5.li
+import it.skrape.selects.text
 import it.skrape.skrape
 import org.junit.jupiter.api.Test
 
@@ -107,6 +109,23 @@ class ExampleTest {
                         withClass = "pageFooter-serviceBoxListItem"
                         findAll {
                             eachHref().size toBe 20
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `check sales badge are visible and contain percentage signs`() {
+        val salesBadgedSelector = ".bargains-list .sales-badge-container .sales-badge-sign"
+        skrape {
+            url = "https://www.idealo.de/"
+            expect {
+                htmlDocument {
+                    salesBadgedSelector {
+                        findAll {
+                            eachText() toContain "%"
                         }
                     }
                 }
