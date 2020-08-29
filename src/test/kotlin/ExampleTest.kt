@@ -1,18 +1,18 @@
 import it.skrape.core.htmlDocument
 import it.skrape.expect
-import it.skrape.matchers.`to contain`
-import it.skrape.matchers.toBe
-import it.skrape.matchers.toBePresent
-import it.skrape.matchers.toContain
+import it.skrape.matchers.*
+import it.skrape.selects.DocElement
 import it.skrape.selects.eachHref
 import it.skrape.selects.eachText
 import it.skrape.selects.html5.*
 import it.skrape.selects.html5.li
-import it.skrape.selects.text
 import it.skrape.skrape
 import org.junit.jupiter.api.Test
 
+
 class ExampleTest {
+
+    private val List<DocElement>.isNumeric get() = this.forEach { it.text.matches("-?\\d+(\\.\\d+)?".toRegex()) }
 
     @Test
     fun `check header claim is visible`() {
@@ -117,15 +117,22 @@ class ExampleTest {
     }
 
     @Test
-    fun `check sales badge are visible and contain percentage signs`() {
-        val salesBadgedSelector = ".bargains-list .sales-badge-container .sales-badge-sign"
+    fun `check content of bargain badge contains percentage and is numeric`() {
+        val salesBadgedPercentageSelector = ".bargains-list .sales-badge-sign"
+        val salesBadgedAmountSelector = ".bargains-list .sales-badge"
+
         skrape {
             url = "https://www.idealo.de/"
             expect {
                 htmlDocument {
-                    salesBadgedSelector {
+                    salesBadgedPercentageSelector {
                         findAll {
                             eachText() toContain "%"
+                        }
+                    }
+                    salesBadgedAmountSelector {
+                        findAll {
+                            isNumeric
                         }
                     }
                 }
@@ -133,4 +140,3 @@ class ExampleTest {
         }
     }
 }
-
