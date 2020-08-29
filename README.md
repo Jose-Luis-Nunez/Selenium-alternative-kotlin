@@ -28,8 +28,114 @@ class ExampleTest {
             }
         }
     }
-    .
-    .
-    .
+
+    @Test
+    fun `check text in searchlabel is displayed `() {
+        skrape {
+            url = "https://www.idealo.de/"
+            expect {
+                htmlDocument {
+                    label {
+                        withClass = "i-search-label"
+                        findFirst {
+                            text toBe "Ich suche ..."
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `check idealo logo is visible `() {
+        skrape {
+            url = "https://www.idealo.de/"
+            expect {
+                htmlDocument {
+                    a {
+                        withClass = "i-header-logo"
+                        findFirst {
+                            toBePresent
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `check title of top products carousel is visible`() {
+        val topProductsCarouselSelector = "#popular-products-section .stage-title"
+        skrape {
+            url = "https://www.idealo.de/"
+            expect {
+                htmlDocument {
+                    topProductsCarouselSelector {
+                        findFirst {
+                            text toBe "Beliebteste Produkte"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `check computerbild logo is visible`() {
+        val computerBildLogoSelector = ".i-header-row .i-header-cobi"
+        skrape {
+            url = "https://www.idealo.de/"
+            expect {
+                htmlDocument {
+                    computerBildLogoSelector {
+                        findFirst {
+                            toBePresent
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `check 20 footer links exist`() {
+        skrape {
+            url = "https://www.idealo.de/"
+            expect {
+                htmlDocument {
+                    li {
+                        withClass = "pageFooter-serviceBoxListItem"
+                        findAll {
+                            eachHref().size toBe 20
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `check content of bargain badge contains percentage and is numeric`() {
+        val salesBadgedPercentageSelector = ".bargains-list .sales-badge-sign"
+        val salesBadgedAmountSelector = ".bargains-list .sales-badge"
+
+        skrape {
+            url = "https://www.idealo.de/"
+            expect {
+                htmlDocument {
+                    salesBadgedPercentageSelector {
+                        findAll {
+                            eachText() toContain "%"
+                        }
+                    }
+                    salesBadgedAmountSelector {
+                        findAll {
+                            isNumeric
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 ```
