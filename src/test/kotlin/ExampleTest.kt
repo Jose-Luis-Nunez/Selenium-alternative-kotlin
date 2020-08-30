@@ -1,7 +1,6 @@
 import it.skrape.core.htmlDocument
 import it.skrape.expect
 import it.skrape.matchers.*
-import it.skrape.selects.DocElement
 import it.skrape.selects.eachHref
 import it.skrape.selects.eachText
 import it.skrape.selects.html5.*
@@ -11,8 +10,6 @@ import org.junit.jupiter.api.Test
 
 
 class ExampleTest {
-
-    private val List<DocElement>.isNumeric get() = this.forEach { it.text.matches("-?\\d+(\\.\\d+)?".toRegex()) }
 
     @Test
     fun `check header claim is visible`() {

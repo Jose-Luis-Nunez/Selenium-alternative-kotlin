@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     val jUnitVersion = "5.5.2"
-    val skrapeitVersion = "master-SNAPSHOT"
+    val skrapeitVersion = "55884ef3"
 
     testImplementation(
             group = "org.junit.jupiter",
