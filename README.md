@@ -137,5 +137,34 @@ class ExampleTest {
             }
         }
     }
+
+    @Test
+    fun `check content of bargain badge contains percentage and is numeric with nested selector`() {
+
+        skrape {
+            url = "https://www.idealo.de/"
+            expect {
+                htmlDocument {
+                    div {
+                        withClass = "bargains-list"
+                        findAll {
+                            div {
+                                withClass = "sales-badge"
+                                findAll {
+                                    isNumeric
+                                    small {
+                                        withClass = "sales-badge-sign"
+                                        findAll {
+                                            eachText toContain "%"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 ```
