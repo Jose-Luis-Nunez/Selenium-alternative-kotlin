@@ -9,10 +9,12 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
     jcenter()
+    maven { url = uri("https://jitpack.io") }
 }
+
 dependencies {
     val jUnitVersion = "5.5.2"
-    val skrapeitVersion = "1.0.0-alpha6"
+    val skrapeitVersion = "master-SNAPSHOT"
 
     testImplementation(
             group = "org.junit.jupiter",
@@ -20,9 +22,9 @@ dependencies {
             version = jUnitVersion
     )
     implementation(
-        group = "it.skrape",
-        name = "skrapeit-core",
-        version = skrapeitVersion
+            group = "com.github.skrapeit",
+            name = "skrape.it",
+            version = skrapeitVersion
     )
     implementation(kotlin("stdlib-jdk8"))
 }

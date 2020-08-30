@@ -108,7 +108,7 @@ class ExampleTest {
                     li {
                         withClass = "pageFooter-serviceBoxListItem"
                         findAll {
-                            eachHref().size toBe 20
+                            eachHref.size toBe 20
                         }
                     }
                 }
@@ -127,12 +127,41 @@ class ExampleTest {
                 htmlDocument {
                     salesBadgedPercentageSelector {
                         findAll {
-                            eachText() toContain "%"
+                            eachText toContain "%"
                         }
                     }
                     salesBadgedAmountSelector {
                         findAll {
                             isNumeric
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `check content of bargain badge contains percentage and is numeric with nested selector`() {
+
+        skrape {
+            url = "https://www.idealo.de/"
+            expect {
+                htmlDocument {
+                    div {
+                        withClass = "bargains-list"
+                        findAll {
+                            div {
+                                withClass = "sales-badge"
+                                findAll {
+                                    isNumeric
+                                    small {
+                                        withClass = "sales-badge-sign"
+                                        findAll {
+                                            eachText toContain "%"
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
